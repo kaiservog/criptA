@@ -37,13 +37,17 @@ public class InfoController {
 
 	@RequestMapping(value = "/save-secret", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveWithCript(CriptInfo info) {
+	public void saveWithCript(CriptInfo criptInfo) {
 		Criptography c = new Criptography();
 
 		try {
-			String criptValue = c.cript(info.getValue(), info.getKey());
+			String criptValue = c.cript(criptInfo.getValue(), criptInfo.getKey());
+			Info info = new Info();
+			
+			info.setService(criptInfo.getService());
 			info.setValue(criptValue);
 			infoDao.updateOrSave(info);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
