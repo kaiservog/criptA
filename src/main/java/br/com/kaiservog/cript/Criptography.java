@@ -17,6 +17,7 @@ public class Criptography {
 
 	public static final String ENCODING = "UTF-8";
 	public static final int BLOCK_SIZE = 8;
+	public static final String RESERVED_LETTER = "Z";
 
 	public String cript(String value, String key) throws NoSuchAlgorithmException, NoSuchPaddingException,
 			InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException {

@@ -1,5 +1,6 @@
 package br.com.kaiservog.controllers;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -36,8 +37,13 @@ public class InfoController {
 	}
 
 	@RequestMapping(value = "/save-secret", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void saveWithCript(CriptInfo criptInfo) {
+	@ResponseBody
+	public void saveWithCript(CriptInfo criptInfo, HttpServletResponse response) {
+		if(criptInfo.getValue().endsWith(Criptography.RESERVED_LETTER)) {
+	        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	        return;
+		}
+		
 		Criptography c = new Criptography();
 
 		try {
@@ -47,9 +53,10 @@ public class InfoController {
 			info.setService(criptInfo.getService());
 			info.setValue(criptValue);
 			infoDao.updateOrSave(info);
-			
+	        response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 

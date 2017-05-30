@@ -21,7 +21,7 @@ public class CriptTest {
 	public void testCript() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IOException,
 			IllegalBlockSizeException, BadPaddingException, NoSuchProviderException, InvalidAlgorithmParameterException {
 		Criptography c = new Criptography();
-		String secret = new String("hello");
+		String secret = new String("huehue");
 		String secretKey = "12345678";
 		
 		String trash = c.cript(secret, secretKey);
